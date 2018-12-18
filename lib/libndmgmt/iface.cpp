@@ -972,11 +972,13 @@ void network_interface::look_for_new_interfaces(rpl_debug *debug)
 {
     network_interface *iface = network_interface::all_if;
     while(iface != NULL) {
+        network_interface *next = iface->next;
         if(!iface->alive && !iface->disabled) {
             iface->setup();
 
             dag_network::send_all_dag(iface);
         }
+        iface = next;
     }
 }
 
